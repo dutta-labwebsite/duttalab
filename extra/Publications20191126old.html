@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anindya Dutta</title>
+<meta name="description" content="Anindya Dutta is ">
+<link rel="stylesheet" type="text/css" href="CSS/publicationNav.css"/>
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="websiteAnimateComp_1.js?1481401977311"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {	
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.websiteAnimateComp_1();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	fnStartAnimation();
+}
+</script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52643916-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+
+<link rel="icon" type="image/ico" href="faviconSmall.ico">            
+</head>
+
+
+<header class="headerMain">
+
+<div class="header">
+<div class= "logo">
+	<div class = "logoImage"><img src="images/Logo.jpg" width="380px" alt="Logo"/></div>
+    <div class = "name"> </div>
+</div>
+
+
+<div class="nav">
+ <ul class="ulnav">
+   	<li class="linav"><a href="index.html"> Home</a></li>
+   	<div class="dropdown">
+   	<button class="dropbtn">Research</button>
+   	<div class="dropdown-content">
+      <a href="dnadamage.html">DNA Damage</a>
+      <a href="noncodingrna.html">Non-Coding RNA</a>
+      <a href="genomic.html">Genomic Instability</a>
+    </div>
+    </div>
+    <li class="linav"><a href="People.html"> People</a></li>
+    <li class="linav"><a href="Publications.html"> Publications </a></li>
+    <li class="linav"><a href="Contact.html"> Contact</a></li>
+  </ul>
+ </div>
+    
+ 
+ <!-- banner -->
+
+ 
+ <!-- End banner -->
+ 
+ <div class = "resInt"><div class="aboutme"><b>Publications</b></div><br>
+	<div class="head"><a href="#1985-1990">1985-1990</a> <a href="#1991-1995">1991-1995</a> <a href="#1996-2000">1996-2000</a> <a href="#2001-2005">2001-2005</a> <a href="#2006-2010">2006-2010</a> <a href="#2011-2015">2011-2015</a> <a href="#2016-2020">2016-2020</a></div>
+<div class="textBoxes">
+<div class="textBox1">
+<div class="heading"><a NAME="1985-1990">1985-1990</a></div><br>
+
+<b>1.</b>	Dutta A, Wang L-H, Hanafusa T, Hanafusa H.  Partial nucleotide sequence of Rous sarcoma virus-29 provides evidence that the original Rous sarcoma virus was replication defective.  J Virol.  1985; 55, 728-735.<br>
+
+<b>2.</b>	Dutta A, Majumder H K.  Effects of monosaccharides on uptake of Leishmania donovani promastigotes by murine macrophages.  Indian Jl Biochem Biophys.  1986; 23, 1-4.<br>
+
+<b>3.</b>	Dutta A, Dorai T, Hanafusa H.  The putative trans-activator in the MA gag region of Rous sarcoma virus is not required for cell transformation.  J Virol.  1988; 62, 4767-4769.<br>
+
+<b>4.</b>	Prywes R, Dutta A, Cromlish J A, Roeder R G.  Phosphorylation of serum response factor, a factor that binds to the serum response element upstream of the c-fos promoter.  Proc Natl Acad Sci USA.  1988; 85, 7206-7210.<br>
+
+<b>5.</b>	Dutta A, Stoeckle M Y, Hanafusa H.  Serum and v-src increase the level of CCAAT binding factor required for transcription from a retroviral LTR.  Genes & Dev.  1990; 4, 243-254.<br>
+
+<b>6.</b>	Dutta A, Hamaguchi M, Hanafusa H.  Serum independence of transcription from the promoter of an avian retrovirus in v-src transformed cells is a primary, intracellular effect of increased tyrosine phosphorylation. Proc Natl Acad Sci U S A. 1990; 87, 608-612.<br><br>
+
+
+<div class="heading"><a NAME="1991-1995">1991-1995</a></div><br>
+
+<b>7.</b> Dutta A, Stillman B.  cdc2 family kinases phosphorylate a human cell DNA replication factor, RPA, and activate DNA replication.  EMBO J.  1992; 11, 2189-2199.<br>
+
+<b>8.</b> 	Dutta A, Ruppert J M, Aster J C, Winchester E.  Inhibition of DNA replication factor RPA by p53.  Nature.  1993; 365, 79-82. (Accompanied by News and Views piece in Nature) <br>
+
+<b>9.</b> 	Chen J, Jackson P K, Kirschner M W, and Dutta A. Separate domains of p21 involved in the inhibition of cdk kinase and PCNA.  Nature.  1995; 374, 386-388<br>
+
+<b>10.</b>	Dutta A, Chandra R, Leiter L M, Lester S.  Cyclins as markers of tumor proliferation and angiogenesis: immunocytochemical studies in breast cancer.  Proc Natl Acad Sci USA.  1995; 92, 5386-5390. <br>
+
+<b>11.</b>	Keshav K F, Chen C, Dutta A.  Rpa4, a homolog of the 34 kDa subunit of the replication protein A complex.  Mol. Cell. Biol.  1995; 15, 3119-3128.<br><br>
+
+
+<div class="heading"><a NAME="1996-2000">1996-2000</a></div><br>
+
+<b>12.</b>Chen J, Peters R, Saha P, Lee P, Theodoras A, Pagano M, Wagner G, Dutta A.  A 39 amino acid fragment of the cell cycle regulator p21 is sufficient to bind PCNA and partially inhibit DNA replication in vivo. Nucleic Acids Research.  1996; 24, 1727-1733.<br>
+
+<b>13.</b>	Lin Y-L, Chen C, Keshav K F, Winchester E, Dutta A.  Dissection of functional domains of the human DNA replication protein complex Replication Protein A.  J. Biol. Chemistry.  1996;  271, 17190-17198.<br>
+
+<b>14.</b>	Leiter L M, Chen J, Marathe T, Tanaka M, Dutta A.  Loss of transactivation and transrepression function, and not RPA binding, alters growth suppression by p53.  Oncogene.  1996; 12, 2661-2668.<br>
+
+<b>15.</b> 	Henricksen L A, Carter T, Dutta A, Wold M S.  Phosphorylation of human replication protein A by the DNA-dependent protein kinase is involved in the modulation of DNA replication.  Nucleic Acids Research. 1996; 24, 3107-3112.<br>
+
+<b>16.</b> 	Chen J, Saha P, Kornbluth S, Dynlacht B, Dutta A.  Cyclin binding motifs are essential for the function of p21/CIP1.  Mol. Cell. Biol.  1996; 16, 4673-4682.<br>
+
+<b>17.</b>	Mashal R D, Lester S, Corless C, Richie J P, Chandra R, Propert K J, Dutta A.  Expression of cell-cycle regulated proteins in prostate cancer.  Cancer Research.  1996; 56, 4159-4163.<br>
+
+<b>18.</b> 	Chen J, Chen S, Saha P and Dutta A.  p21 disrupts the recruitment of human Fen1 by proliferating cell nuclear antigen into the DNA replication apparatus.  Proc. Natl. Acad. Sci. USA.  1996; 93, 11597-11602.<br>
+1997
+<b>19.</b> 	Saha P, Eichbaum Q, Silberman E D, Mayer B J, Dutta A.  p21/CIP1 and Cdc25A, competition between an inhibitor and an activator of cyclin dependent kinases. Mol. Cell. Biol.  1997; 17, 4338-4345.<br>
+
+<b>20.</b>	Quintana DG, Hou ZH, Thome KC, Hendricks M, Saha P, Dutta A. Identification of a novel subunit of the human origin recognition complex with homology to yeast Orc4.  J. Biol. Chemistry  1997; 272, 28247-28251.<br>
+1998
+<b>21.</b>	Lin Y L, Shivji M K K, Chen C, Kolodner R, Wood R D, Dutta A. The evolutionarily conserved zinc finger motif in the largest sub-unit of human RPA is required for DNA replication and mismatch repair but not for nucleotide excision repair. J. Biol. Chemistry  1998; 273, 1453-1461.<br>
+
+<b>22.</b> 	Saha P, Chen J, Thome K C, Lawlis S J, Hou Z H, Hendricks M, Parvin J D, Dutta A.  The human CDC6/Cdc18 associates with Orc1 and cyclin-cdk and is selectively eliminated from the nucleus at the onset of S phase.  Mol. Cell. Biol.  1998;  18, 2758-2767.<br>
+
+<b>23.</b>	Saha P, Thome K C, Yamaguchi R, Hou Z H., Weremowicz S and Dutta A.  The human homolog of Saccharomyces cerevisiae CDC45.  J. Biol. Chemistry  1998;  273, 18205-18209.<br>
+
+<b>24.</b>Renshaw A A, Loughlin K R, Dutta A. Cyclin A and Mib1 (Ki67) as markers of proliferation in primary renal neoplasms. Modern Pathology.  1998; 10, 963-966.<br>
+
+<b>25.</b>Quintana DG, Thome KC, Hou ZH, Ligon AH, Morton C C and Dutta A. ORC5L, a new member of the human Origin Recognition Complex, is deleted in uterine leiomyomas and malignant myeloid diseases. J. Biol. Chemistry  1998;  273, 27137-27145.<br>
+
+<b>26.</b>	Qiu X B, Lin Y L, Thome K C, Pian P, Schlegel B P, Weremowicz S, Parvin J D, Dutta A. An Eukaryotic RuvB-like Protein (RUVBL1) Essential for Growth. J. Biol. Chemistry  1998;  273, 27786-27793.<br>
+
+<b>27.</b>	Quade B J, Park J J, Crum C P, Sun D, Dutta A.  In vivo cyclin E expression as a marker for early cervical neoplasia. Modern Pathology. 1998; 11, 1238-1246.<br>
+
+<b>28.</b> 	Pinto S, Quintana  D G, Smith P, Mihalik R M, Hou Z -H, Boynton S, Jones C J, Hendricks M, Velinzon K, Wohlschlegel J A, Austin R J, Lane W S, Tully T* and Dutta A*. latheo encodes a subunit of the Origin Recognition Complex and disrupts neuronal proliferation and adult olfactory memory when mutant.  Neuron. 1999; 23, 45-54. * Co-corresponding authors.<br>
+
+<b>29.</b>	Datta M W, Renshaw A A, Dutta A, Hoffman M A and Loughlin KR.  Evaluation of cyclin expression in testicular germ cell tumors: cyclin E correlates with tumor type, advanced clinical stage, and pulmonary metastasis. Modern Pathology.  2000; 13, 667-672<br>
+
+<b>30.</b>	Dhar S K and Dutta A.  Identification of the human ORC6 homolog. J. Biol. Chemistry.  2000; 275, 34983-34988.<br>
+
+<b>31.</b>	Thome K C, Dhar S K, Quintana D G, Delmolino L, Shahsafaei A and Dutta A.   Subsets of human ORC subunits are expressed in non-proliferating cells and associate with non-ORC proteins. J. Biol. Chemistry.  2000; 275, 35233-35241.<br>
+
+<b>32.</b>	Yamaguchi R and Dutta A.  Proteasome inhibitors alter the orderly progression of DNA synthesis in S phase of HeLa cells and lead to re-replication of DNA.  Exptl. Cell Research.  2000; 261, 271-283.<br>
+
+<b>33.</b> 	Wohlschlegel J A, Dwyer B, Dhar S K, Cvetic C, Walter J and Dutta A. Inhibition of eukaryotic DNA replication by geminin binding to Cdt1.  Science. 2000; 290, 2309-2312. (Accompanied by Perspectives essay in Science)<br><br>
+
+<div class="heading"><a NAME="2001-2005">2001-2005</a></div><br>
+
+<b>34.</b>	Takeda D, Wohlschlegel J A, and Dutta A.  A bipartite substrate recognition motif for cyclin-dependent kinases. J. Biol. Chemistry.  2001; 276, 1993-1997.<br>
+
+<b>35.</b>	Jonsson Z O, Dhar S K, Narlikar G, Auty R, Wagle N, Pellman D, Pratt R E, Kingston R and Dutta A.  Rvb1p and Rvb2p are essential components of a chromatin remodeling complex that regulates transcription of over 5% of yeast genes. J. Biol. Chemistry.  2001; 276,16279-16288.<br>
+
+<b>36.</b> 	Yoshida K, Kuo F, George E L, Sharpe A H and Dutta A. Requirement of CDC45 for postimplantation mouse development.  Mol. Cell. Biol.  2001; 21, 4598-4603.<br>
+
+<b>37.</b>	Wohlschlegel J A, Dwyer B, Takeda D and Dutta A.  A mutational analysis of the Cy motif from p21 reveals sequence degeneracy and specificity for different cyclin-dependent kinases. Mol. Cell. Biol.  2001; 21, 4868-4874.<br>
+
+<b>38.</b>	Delmolino L M, Saha P and Dutta A. Multiple mechanisms regulate subcellular localization of human CDC6: NLS, NES and phosphorylation.  J.Biol. Chemistry.  2001; 276, 26947-26954.<br>
+
+<b>39.</b>	Dhar S K, Delmolino L M and Dutta A.  Architecture of the human Origin Recognition Complex.  J Biol. Chemistry, 2001; 276, 29067-29071.<br>
+
+<b>40.</b> 	Dhar S K, Yoshida K, Machida Y, Khaira P, Chaudhuri B, Wohlschlegel J A, Leffak M, Yates J and Dutta A.  Replication from oriP of Epstein-Barr Virus requires human ORC and is inhibited by geminin.  Cell, 2001; 106, 287-296.<br>
+
+<b>41.</b>	Chaudhuri B, Xu H, Todorov I, Dutta A and Yates J L. Human DNA replication initiation factors, ORC and MCM, associate with oriP of Epstein-Barr virus. .  Proc Natl Acad Sci U S A. 2001; 98, 10085-10089.<br>
+
+<b>42.</b>	Wohlschlegel J A, Dhar SK, Prokhorova TA, Dutta A* and Walter J*.  Xenopus Mcm10 binds to origins of DNA replication after Mcm2-7 and stimulates binding of Cdc45. Molecular Cell. 2002; 9, 233-240.  * Co-corresponding authors. (F1000)<br>
+
+<b>43.</b> 	Wohlschlegel J A, Kutok J L , Weng A P and Dutta A. Expression of geminin as a marker of cell proliferation in normal tissues and malignancies. Am. J. Pathology 2002; 161, 267-273.<br>
+
+<b>44.</b>	Ukomadu C and Dutta A. Inhibition of cdk2 activating phosphorylation by mevastatin.  J. Biol. Chemistry 2003; 278, 4840-4846.<br>
+
+<b>45.</b>	Vaziri C, Saxena S, Jeon Y, Lee C, Murata K, Machida Y, Wagle N, Hwang D S and Dutta A. A p53 dependent checkpoint pathway prevents re-replication. Molecular Cell 2003; 11, 997-1008. (Cover Image)<br>
+
+<b>46.</b>	Ukomadu C and Dutta A. p21 dependent inhibition of colon cancer cell growth by mevastatin is independent of inhibition of G1 cyclin-dependent kinases.  J. Biol. Chem.  2003; 278, 43586.<br>
+
+<b>47.</b>	Saxena S, Jonsson Z O and Dutta A. Small RNAs with imperfect match to endogenous mRNA repress translation: implications for off-target activity of siRNA in mammalian cells. J. Biol. Chem.  2003; 278, 44312-44319. <br>
+
+<b>48.</b>	Yoshida K, Oyaizu N, Dutta A and Inoue I. The destruction box of human Geminin is critical for proliferation and tumor growth in human colon cancer cells. Oncogene. 2004; 23, 58-70.<br>
+
+<b>49.</b>	Zhu W, Chen Y and Dutta A.  Re-replication by depletion of geminin is seen regardless of p53 status and activates a G2/M checkpoint. Mol. Cell. Biol.  2004; 24, 7140-7150. (Cover Image)<br>
+
+<b>50.</b> 	Saxena S, Yuan P, Dhar SK, Senga T, Takeda D, Robinson H, Kornbluth SA, Swaminathan K and Dutta A.  A dimerized coiled-coil domain and an adjoining part of geminin interact with two sites on Cdt1 for replication inhibition.  Molecular Cell, 2004; 15, 245-258.<br>
+
+<b>51.</b>	Jónsson Z O, Jha S, Wohlschlegel J A and Dutta A. Rvb1p/Rvb2p recruit Arp5p and assemble a functional Ino80 chromatin remodeling complex. Molecular Cell, 2004; 16, 465-477.<br>
+
+<b>52.</b> 	ENCODE Project Consortium.	The ENCODE (ENCyclopedia Of DNA Elements) Project.  Science, 2004;306, 636-640.<br>
+
+<b>53.</b>	Lee YS, Kim HK, Chung S, Kim KS, and Dutta A.	Depletion of human microRNA miR-125b reveals that it is critical for the proliferation of differentiated cells but not for the down-regulation of putative targets during differentiation. J Biol Chem. 2005; 280, 16635-16641.<br>
+
+<b>54.</b>	Jeon Y, Bekiranov S, Karnani N, Kapranov P, Ghosh S, MacAlpine D, Lee C, Hwang DS, Gingeras T and  Dutta A. Temporal profile of replication of human chromosomes.  Proc. Natl. Acad. Sci. USA. 2005; 102, 6419-6424.<br>
+
+<b>55.</b>	Takeda D Y, Parvin J D and Dutta A. Degradation of Cdt1 during S phase is SKP2 independent and is required for efficient progression of mammalian cells through S phase.  J. Biol. Chem. 2005; 280, 23416-23423.<br>
+
+<b>56.</b>	Machida Y J, Teer J K and Dutta A. Acute reduction of an ORC subunit in human cells reveals a requirement of ORC for CDK2 activation.  J. Biol. Chem. 2005; 280, 27624-27630.<br>
+
+<b>57.</b>	Takeda D Y, Shibata Y, Parvin J D and Dutta A.  Recruitment of ORC or CDC6 is sufficient to create an artificial origin of replication in mammalian cells.  Genes & Development. 2005; 19, 2827-36. (Research Highlight in Nature Reviews Genetics and Nature Reviews MCB;  F1000) PMC1315390.<br><br>
+
+<div class="heading"><a NAME="2006-2010">2006-2010</a></div><br>
+
+<b>58.</b>	Senga T, Sivaprasad U, Zhu W, Park J H, Arias E E, Walter J C and Dutta A.  PCNA is a co-factor for Cdt1 degradation by CUL4/DDB1 mediated N-terminal ubiquitination. J. Biol. Chem. 2006; 281, 6246-52. (F1000)<br>
+
+<b>59.</b>	Teer J K,  Machida Y J, Labit H, Novac  O,  Hyrien O,  Marheineke K, Zannis-Hadjopoulos M and Dutta A. Proliferating human cells hypomorphic for Orc2 and pre-RC  formation have a defect in p53 activation and CDK2 kinase  activation. J. Biol. Chem. 2006; 281, 6253-60.<br>
+
+<b>60.</b>  Ernkvist M, Aase K, Ukomadu C, Wohlschlegel J, Blackman R, Veitonmaki N, Bratt A, Dutta A and Holmgren L  p130-Angiomotin associates with actin and controls endothelial cell shape.  FEBS Journal, 2006; 273, 2000-11<br>
+
+<b>61.</b>	Zhu W and Dutta A.  An ATR, BRCA1 mediated Fanconi Anemia pathway is required for activating the G2/M checkpoint and DNA damage repair upon re-replication. Mol. Cell. Biol.  2006;  26, 4601-11.<br>
+
+<b>62.</b>	Kim HK, Lee YS, Sivaprasad U, Malhotra A and Dutta A.  Muscle-specific microRNA miR-206 promotes muscle differentiation.  J. Cell Biol.  2006; 174, 677-687. (Cover Image and News Highlight in JCB; Research Highlight in Nature, 2006: 443, 4-5; F1000) PMC2064311<br>
+
+<b>63.</b>	Machida Y J, Machida Y,  Chen Y, Gurtan A, Kupfer G M,  D’Andrea A D and Dutta A. UBE2T is the E2 in the Fanconi Anemia Pathway and Undergoes Negative Autoregulation.  Molecular Cell, 2006; 23, 589-96.<br>
+
+<b>64.</b> 	Sivaprasad U, Abbas T and Dutta A. Differential efficacy of HMG CoA reductase inhibitors on the cell cycle of prostate cancer cells.  Molecular Cancer Therapeutics, 2006; 5: 2310-6.<br>
+
+<b>65.</b>	Machida Y J, Chen Y, Machida Y, Malhotra A, Sarkar S and Dutta A. Targeted Comparative RNAi (TARCOR) Analysis Reveals Differential Requirement of Genes Essential for Cell Proliferation.  Mol. Biol. Cell.  2006; 17: 4837–4845.<br>
+
+<b>66.</b>	Karnani N, Taylor C M, Malhotra A and Dutta A. Pan-S replication patterns and chromosomal domains defined by genome tiling arrays of ENCODE genomic areas.  Genome Research, 2007; 17 : 865-76. (F1000 citation)<br>
+
+<b>67.</b> 	Machida YJ and Dutta A. The APC/C Inhibitor, Emi1, Is Essential for Prevention of Rereplication.  Genes & Development, 2007; 21:184-194. (F1000 citation) PMC1770901<br>
+
+<b>68.</b> 	Abbas T, Jha S, Sherman NE and Dutta A. Autocatalytic Phosphorylation of CDK2 at the Activating Thr160.  Cell Cycle, 2007; 6:843-52. (F1000 citation)<br>
+
+<b>69.</b>	Lee YS and Dutta A. The tumor suppressor microRNA let-7 represses the HMGA2 oncogene.  Genes & Development, 2007; 21:1025-30. (Accompanied by a Perspectives essay). PMC1855228<br>
+
+<b>70.</b>	ENCODE project consortium. Identification and analysis of functional elements in 1% of the human genome by the ENCODE pilot project consortium.  Nature, 2007; 447: 799-816. (Our group provided and analyzed the DNA replication data for the consortium; F1000 citation.) PMC2212820<br>
+
+<b>71.</b>	Zhu W, Ukomadu C, Jha S, Senga T, Dhar SK, Wohlschlegel JA, Nutt LK, Kornbluth S and Dutta A. Mcm10 and And-1/CTF4 recruit DNA polymerase α to chromatin for initiation of DNA replication. .  Genes & Development, 2007; 21:2288-99. (F1000 citation)<br>
+
+<b>72.</b>	Lin JJ and Dutta A. ATR pathway is the primary pathway for activating G2/M checkpoint induction after re-replication.  J. Biol. Chem.  2007; 282:30357-62 (Highlighted as “Research Highlight” in Nature Structural and Molecular Biology, 14:1061)<br>
+
+<b>73.</b> 	Alpi A, Langevin F, Mosedale G, Machida YJ, Dutta A and Patel KJ.  UBE2T, the FA core complex and FANCD2 are recruited independently to chromatin: A basis for the regulation of FANCD2 monoubiquitination. Mol Cell Biol. 2007; 27:8421-30<br>
+
+<b>74.</b>  Deng Z,  Dheekollu J, Broccoli D, Dutta A and Lieberman PM.  The Origin Recognition Complex Localizes to Telomere Repeats and Prevents Telomere-Circle Formation. Current Biology. 2007; 17:1989-95.<br>
+
+<b>75.</b>	Teer JK and Dutta A. Human Cdt1 lacking the evolutionarily conserved region that interacts with MCM2-7 is capable of inducing re-replication. J. Biol. Chem. 2008; 283:6817-25.<br>
+
+<b>76.</b>	Jha S, Shibata E and Dutta A. Human Rvb1/Tip49 is required for the HAT activity of TIP60/NuA4 and for the downregulation of phosphorylation on H2AX after DNA damage. Mol. Cell. Biol. 2008; 28:2690-700. PMC2293106<br>
+
+<b>77.</b>	Lew DJ, Burke DJ and Dutta A.  The immortal strand hypothesis: How could it work? Cell, 2008; 133:21-23.<br>
+
+<b>78.</b>	Abbas T, Sivaprasad U, Terai K, Amador V, Pagano M and Dutta A. PCNA-dependent regulation of p21 ubiquitylation and degradation via the CRL4-cdt2 ubiquitin ligase complex.  Genes & Development, 2008; 22:2496-506. PMC2546691<br>
+
+<b>79.</b>	Torreira E, Jha S, López-Blanco JR, Arias-Palomo E, Chacón P, Cañas C, Ayora S, Dutta A and Llorca O. Architecture of the pontin/reptin complex, essential in the assembly of several macromolecular complexes.  Structure, 2008: 16:1511-20. PMC2577609<br>
+
+<b>80.</b>	Shibata Y, Malhotra A, Bekiranov S and Dutta A. Yeast genome analysis identifies chromosomal translocation, gene conversion events and several sites of Ty element insertion. Nucleic Acids Research, 2009: 37:6454-65. PMC2770650<br>
+
+<b>81.</b>  Lee YS, Shibata Y, Malhotra A and Dutta A. A novel class of small RNAs: tRNA-derived RNA fragments (tRFs).  Genes & Development, 2009; 23:2639-49. PMC2779758<br>
+
+<b>82.</b>	Machida YJ, Machida Y, Vashisht A, Wohlschlegel JA and Dutta A. The Deubiquitinating Enzyme BAP1 Regulates Cell Growth via Interaction with HCF-1. J. Biol. Chem., 2009; 284:34179-88. PMC2797188<br>
+
+<b>83.</b>  Terai K, Abbas T, Jazaeri AA and Dutta A. CRL4Cdt2 E3 ubiquitin ligase monoubiquitinates PCNA to promote translesion DNA synthesis.  Molecular Cell, 2010; 37:143-149. PMC2818832<br>
+
+<b>84.</b>	Karnani N, Taylor CM, Malhotra A and Dutta A. Genomic study of replication initiation in human chromosomes reveals the influence of transcription regulation and chromatin structure on origin selection. Mol. Biol. Cell.  2010; 21:393-404 PMC2814785<br>
+
+<b>85.</b> 	Jazaeri AA, Ferriss JS, Bryant JL, Dalton MS, Dutta A.  Evaluation of EVI1 and EVI1s (Delta324) as potential therapeutic targets in ovarian cancer.  Gynecol Oncol. 2010, 118:189-95<br>
+
+<b>86.</b>	Sarkar S, Dey BK and Dutta A. MiR-322/424 and 503 are induced during muscle differentiation and promote cell-cycle quiescence and differentiation by downregulation of Cdc25A. Mol. Biol. Cell. 2010, 21:2138-49. PMC2893979<br>
+
+<b>87.</b>	Jha S, Vande Pol S, Banerjee NS, Dutta AB, Chow LT, and Dutta A. Destabilization of TIP60 by human papillomavirus E6 results in attenuation of TIP60 dependent transcriptional regulation and apoptotic pathway. Molecular Cell, 2010, 38:700-11 (F1000 citation) PMC2886028<br>
+
+<b>88.</b>	Shibata Y, Malhotra A and Dutta A.  Detection of DNA fusion junctions for BCR-ABL translocations by Anchored ChromPET.  Genome Med. 2010, 2:70.  PMC3092121  (Highly Accessed)<br>
+
+<b>89.</b>	Abbas T, Shibata E,  Park J, Jha S, Karnani N and Dutta A. CRL4Cdt2 Regulates Cell Proliferation and Histone Gene Expression by Targeting PR-Set7/Set8 for Degradation. Molecular Cell, 2010, 40: 9-21. (Featured Article, F1000 citation, Perspective in Molecular Cell, Research Highlight in Nature Reviews MCB) PMC2966975<br>
+
+<b>90.</b>	Lin JJ, Milhollen MA, Smith PG, Narayanan U and Dutta A. NEDD8-targeting drug MLN4924 elicits DNA rereplication by stabilizing Cdt1 in S phase, triggering checkpoint activation, apoptosis, and senescence in cancer cells.  Cancer Research, 2010, 70:10310-20. PMC3059213<br><br>
+
+<div class="heading"><a NAME="2011-2015">2011-2015</a></div><br>
+
+<b>91.</b> 	Dey BK, Gagan J and Dutta A. MiR-206 and -486 induce myoblast differentiation by downregulating Pax7.  Mol. Cell Biol., 2011, 31:203-14. PMC3019853<br>
+
+<b>92.</b> 	Sun D, Lee YS, Malhotra A, Kim HK, Matecic M, Evans C, Jensen RV, Moskaluk CA and Dutta A.  miR-99 family of microRNAs suppresses the expression of prostate specific antigen and prostate cancer cell proliferation.  Cancer Research, 2011; 71:1313-24. PMC3523179<br>
+
+<b>93.</b>	Mesner LD, Valsakumar V, Karnani N, Dutta A, Hamlin JL, Bekiranov S.  Bubble-chip analysis of human origin distributions demonstrates on a genomic scale significant clustering into zones and significant association with transcription.  Genome Res., 2011, 21:377-89.  (F1000 citation)  PMC3044852<br>
+
+<b>94.</b>	Karnani N and Dutta A. The effect of the intra-S-phase checkpoint on origins of replication in human cells.  Genes & Development, 2011; 25:621-33. PMC3059835<br>
+
+<b>95.</b>	Keaton M and Dutta A. Nuclear Scaffold Attachment Sites within ENCODE Regions Associate with Actively Transcribed Genes, PLOS One, 2011;  6 : e17912.  PMC3056778<br>
+
+<b>96.</b> 	Gagan JR, Dey BK, Layer R, Yan Z and Dutta A. MICRORNA-378 targets the myogenic repressor MyoR during myoblast differentiation, J. Biol. Chem., 2011; 286:19431-8.  PMC3103322<br>
+
+<b>97.</b>  Shibata E, Abbas T, Huang X, Wohlschlegel JA and Dutta A.  Selective ubiquitylation of p21 and Cdt1 by UbcH8 and Ube2G ubiquitin-conjugating enzymes via the CRL4-Cdt2 ubiquitin ligase complex.  Mol. Cell Biol., 2011; 31:3136-45 PMC3147600<br>
+
+<b>98.</b>	Van Rechem C, Black JC, Abbas TA, Allen A, Rinehart CA, Yuan GC, Dutta A, Whetstine JR.  The SKP1 - Cul1 - F-box and Leucine-rich repeat protein 4 (SCF-FbxL4) ubiquitin ligase regulates lysine demethylase 4A (KDM4A)/Jumonji domain-containing 2A (JMJD2A).  J Biol Chem. 2011; 286:30462-70. PMC3162406<br>
+
+<b>99.</b>	Jazaeri AA, Bryant JL, Park H, Li H, Dahiya N, Stoler MH, Ferriss JS, Dutta A.  Molecular requirements for transformation of fallopian tube epithelial cells into serous carcinoma. Neoplasia. 2011; 13:899-911.  PMC3201567<br>
+
+<b>100.</b>	Shibata Y, Kumar P, Layer R, Willcox S, Gagan JR, Griffith JD, Dutta A.  Extrachromosomal MicroDNAs and Chromosomal Microdeletions in Normal Tissues. Science. 2012; 336:82-6  F1000 citation. PMC3703515<br>
+
+<b>101.</b>  Mueller AC, Sun D, Dutta A. The miR-99 family regulates the DNA damage response through its target SNF2H. Oncogene. 2013; 32:1164-72 PMC3407337 (Epub 2012)<br>
+
+<b>102.</b>	Dey BK, Gagan JR, Yan Z,  Dutta A. MiR-26a is required for skeletal muscle differentiation and regeneration in mice.  Genes & Development. 2012; 26:2180-2191. PMC3465739<br>
+
+<b>103.</b>	Gagan JR, Dey BK, Layer R, Yan Z and Dutta A.  Notch3 and Mef2c Are Mutually Antagonistic via Mkp1 and miR-1/206 in Differentiating Myoblasts. J. Biol. Chem. 2012; 287:40360-70.  PMC3504751<br>
+
+<b>104.</b>	Gupta A, Jha S, Engel DA, Ornelles DA and Dutta A. Tip60 degradation by adenovirus relieves transcriptional repression of viral transcriptional activator E1A. Oncogene. 2013; 32:5017-25. doi: 10.1038/onc.2012.534. [Epub 2012]  PMC3955737<br>
+
+<b>105.</b> Jha S, Gupta A, Dar A and Dutta A.  RVBs are required for assembling a functional TIP60 complex. Mol Cell Biol. 2013, 33:1164-74. PMC3592018<br>
+
+<b>106.</b>	Sun D,  Layer R,  Mueller AC, Cichewicz M, Negishi M, Paschal BM and Dutta A.  Regulation of several androgen-induced genes through the repression miR 99a/let-7c/miR 125-b-2 miRNA cluster in prostate cancer cells.  Oncogene.  2014;33:1448-57 PMC3915043 (Epub 2013)<br>
+
+<b>107.</b>	Abbas T, Mueller AC, Shibata E, Keaton M, Rossi M and Dutta A.CRL1-FBXO11 promotes Cdt2 ubiquitylation and degradation and regulates Pr-Set7/Set8-mediated cellular migration.  Molecular Cell. 2013. 49:1147-58.  PMC3615078<br>
+
+<b>108.</b>	Park J, Long DT, Lee KY, Abbas T, Shibata E, Negishi M, Luo Y, Schimenti JC, Gambus A, Walter JC and Dutta A. The MCM8-9 complex promotes RAD51 recruitment at DNA damage sites to facilitate homologous recombination. Mol Cell Biol. 2013; 33:1632-44. PMC3624244<br>
+
+<b>109.</b>	Snow CJ, Dar A, Dutta A, Kehlenbach RH, Paschal BM.  Defective nuclear import of Tpr in Progeria reflects the Ran sensitivity of large cargo transport.  J Cell Biol. 2013; 201:541-57.  PMC3653351<br>
+
+<b>110.</b>	Malhotra A, Shibata Y, Hall IM and Dutta A. Chromosomal structural variations during progression of a prostate epithelial cell line to a malignant metastatic state inactivate the NF2, NIPSNAP1, UGT2B17 and LPIN2 genes.  Cancer Biol. Therapy, 2013;.epub 10.4161/cbt.25329 PMC3909553<br>
+
+<b>111.</b> Dar A, Shibata E and Dutta A. Deubiquitination of Tip60 by USP7 Determines the Activity of the p53-Dependent Apoptotic Pathway.  Mol Cell Biol. 2013; 33:3309-20. PMC3653351<br>
+
+<b>112.</b>	Jazaeri AA, Shibata E, Park J, Bryant JL, Conaway MR, Modesitt SC, Smith PG, Milhollen MA, Berger AJ, Dutta A.  Overcoming platinum resistance in preclinical models of ovarian cancer using the neddylation inhibitor MLN4924.  Molecular Cancer Therapeutics. 2013; 12:1958-67.  PMC3795967<br>
+
+<b>113.</b>  Terai K, Shibata E, Abbas T, Dutta A.  Degradation of p12 by CRL4Cdt2 E3 ligase inhibits fork progression after DNA damage.  J Biol Chem. 2013; 288:30509-14. PMC3798521<br>
+
+<b>114.</b>	Wagenseller AG, Shada A, D'Auria KM, Murphy C, Sun D, Molhoek KR, Papin JA, Dutta A, Slingluff CL Jr.  MicroRNAs induced in melanoma treated with combination targeted therapy of Temsirolimus and Bevacizumab.  J Transl Med. 2013;11:218.  doi: 10.1186/1479-5876-11-218. PMC3853033<br>
+
+<b>115.</b> Dey BK, Pfeifer K, and Dutta A. The H19 long non-coding RNA gives rise to microRNAs miR-675-3p and -5p to promote skeletal muscle differentiation and regeneration.  Genes & Development. 2014; 28:491-501. PMC3950346<br>
+
+<b>116.</b>	Im JS, Keaton M, Lee KY, Kumar P, Park J and Dutta A.  ATR checkpoint kinase and CRL1βTRCP collaborate to degrade ASF1a and thus repress genes overlapping with clusters of stalled replication forks.  Genes & Development. 2014; 28:875-87. PMC4003279<br>
+
+<b>117.</b>	Negishi M, Wongpalee SP, Sarkar S, Park J, Lee KY, Shibata Y, Reon BJ, Abounader R, Suzuki Y, Sugano S and Dutta A. A new lncRNA, APTR, associates with and represses the CDKN1A/p21 promoter by recruiting Polycomb proteins.  PLoS One, 2014; 9: e95216. PMC3991591<br>
+
+<b>118.</b>	Floyd DH, Zhang Y, Dey BK, Kefas B, Breit H, Marks K, Dutta A, Herold-Mende C, Synowitz M, Glass R, Abounader R, and Purow BW. Novel anti-apoptotic microRNAs 582-5p and 363 promote human glioblastoma stem cell survival via direct inhibition of caspase 3, caspase 9, and Bim.  PLoS One. 2014 ;9:e96239.  PMC4013090<br>
+
+<b>119.</b>	Zhang Y, Kim J, Mueller AC, Dey B, Yang Y, Lee DH, Hachmann J, Finderle S, Park DM, Christensen J, Schiff D, Purow B, Dutta A, Abounader R.  Multiple receptor tyrosine kinases converge on microRNA-134 to control KRAS, STAT5B, and glioblastoma.  Cell Death Differ. 2014;21:720-34. PMC3978301<br>
+
+<b>120.</b>  Shibata E, Dar A and Dutta A.  CRL4Cdt2 E3 Ubiquitin Ligase and PCNA Cooperate to Degrade Thymine DNA Glycosylase in S-phase.  J Biol Chem. 2014, 289:23056-64.  PMC4132804<br>
+
+<b>121.</b>  Dar A, Wu D, Lee N, Shibata E and Dutta A.  14-3-3 proteins play a role in the cell cycle by shielding Cdt2 from ubiquitin-mediated degradation.  Mol. Cell Biol. 2014, 34:4049-61. PMC4386460.<br>
+
+<b>122.</b>	Kumar P, Anaya J, Mudunuri SB and Dutta A.  Meta-analysis of tRNA derived RNA fragments reveals that they are evolutionarily conserved and associate with Ago proteins to recognize specific RNA targets.  BMC Biology, 2014, 12:78. doi: 10.1186/s12915-014-0078-0.  PMC4203973<br>
+
+<b>123.</b>	Kumar P, Mudunuri SB, Anaya J and Dutta A.  tRFdb: a database of transfer RNA fragments.  Nucleic Acids Research, Nucleic Acids Res. 2015 Jan 28;43(Database issue):D141-5. doi: 10.1093/nar/gku1138.<br>
+
+<b>124.</b>	Mueller AC, Cichewicz MA, Dey BK, Layer R, Reon BJ, Gagan JR and Dutta A.  MUNC: A lncRNA that induces the expression of pro-myogenic genes in skeletal myogenesis. Mol. Cell Biol., 2015, 35:498-513. PMC4285423<br>
+
+<b>125.</b>	Hong S, Dutta A, Laimins LA.  The acetyltransferase Tip60 is a critical regulator of the differentiation-dependent amplification of human papillomaviruses. J Virol. 2015. Apr 15;89(8):4668-75. doi: 10.1128/JVI.03455-14. PMID 25673709<br>
+
+<b>126.</b>	Sakurai K, Reon BJ, Anaya J, Dutta A. The lncRNA DRAIC/PCAT29 locus constitutes a tumor suppressive nexus. Mol Cancer Res. 2015. 13:828-38. PMC4456356<br>
+
+<b>127.</b>	Dillon LW, Kumar P, Shibata Y, Wang YH, Willcox S, Griffith JD, Pommier Y, Takeda S, and  Dutta A.  Mismatch repair pathways and transcriptional activity are important for microDNA production. Cell Reports. 2015; 11:1749-59.  PMC4481157<br>
+
+<b>128.</b>	Lee KY, Im JS, Shibata E, Park JH, Handa N, Kowalczykowski S and Dutta A.  MCM8-9 complex promotes resection of double-strand break ends by Mre11-Rad50-Nbs1 complex.  Nature Communications.  2015; 6:7744.  PMC4525285<br>
+
+<b>129.</b>	Coleman KE, Grant GD, Haggerty RA, Brantley K, Shibata E, Workman BD, Dutta A, Varma D, Purvis JE, Cook JG.  Sequential replication-coupled destruction at G1/S ensures genome stability.  Genes Dev. 2015;29:1734-46. PMC4561482<br><br>
+
+<div class="heading"><a NAME="2016-2020">2016-2020</a></div><br>
+
+
+<b>130.</b>	Reon BJ, Anaya J, Zhang Y, Mandell J, Purow B, Abounader R, Dutta A.  Expression of lncRNAs in Low-Grade Gliomas and Glioblastoma Multiforme: An In Silico Analysis.  PLoS Med. 2016;13(12):e1002192. doi: 10.1371/journal.pmed.1002192.  PMID: 27923049<br>
+
+<b>131.</b>	Shibata E, Kiran M, Shibata Y, Singh S, Kiran S, Dutta A.  Two subunits of human ORC are dispensable for DNA replication and proliferation.  Elife. 2016;5. pii: e19084. doi: 10.7554/eLife.19084. [Epub ahead of print]  PMID: 27906128<br>
+
+<b>132.</b> Kumar P, Dillon L, Shibata Y, Jazaeri AA, Jones DR, Dutta A. Normal and Cancerous Tissues Release extrachromosomal circular DNA (eccDNA) into the Circulation. Molecular Cancer Research, molcanres. 0095.2016 PMID: 28550083<br>
+
+<b>133.</b> Kumar P, Kuscu C, Dutta A.Biogenesis and Function of Transfer RNA-Related Fragments (tRFs). Trends Biochem Sci. 2016 Aug;41(8):679-689. PMID: 27263052<br>
+
+<b>134.</b> Lee KY, Im JS, Shibata E, Dutta A. ASF1a Promotes Non-homologous End Joining Repair by Facilitating Phosphorylation of MDC1 by ATM at Double-Strand Breaks. Mol Cell. 2017 Oct 5;68(1):61-75.e5. PMID: 28943310<br>
+
+<b>135.</b> Abbas T, Dutta A. Regulation of Mammalian DNA Replication via the Ubiquitin-Proteasome System. Adv Exp Med Biol. 2017;1042:421-454. PMID: 29357069<br>
+
+<b>136.</b> Paulsen T, Kumar P, Koseoglu MM, Dutta A. Discoveries of Extrachromosomal Circles of DNA in Normal and Tumor Cells. Trends Genet. 2018 Apr;34(4):270-278. PMID:     29329720<br>
+
+<b>137.</b> Kuscu C, Kumar P, Kiran M, Su Z, Malik A, Dutta A. tRNA fragments (tRFs) guide Ago to regulate gene expression post-transcriptionally in a Dicer-independent manner. RNA. 2018 Aug;24(8):1093-1105. PMID: 29844106<br>
+
+<b>138.</b> Reon BJ, Takao Real Karia B, Kiran M, Dutta A. LINC00152 Promotes Invasion Through a 3'-hairpin Structure and Associates with Prognosis in Glioblastoma. Mol Cancer Res. 2018 Jul 10. MCR-18-0322. [Epub ahead of print] PMID: 29991527<br>
+
+<b>139.</b> Cichewicz MA, Kiran M, Przanowska RK, Sobierajska E, Shibata Y, Dutta A. MUNC, an eRNA upstream from the MYOD gene, induces a subgroup of myogenic transcripts in trans, independently of MyoD. Mol Cell Biol. 2018 Jul 23. MCB.00655-17. [Epub ahead of print] PMID: 30037979<br>
+
+<b>140.</b> Kiran S, Dar A, Singh SK, Lee KY, Dutta A. The Deubiquitinase USP46 Is Essential for Proliferation and Tumor Growth of HPV-Transformed Cancers. Mol Cell. 2018 Oct 30. pii: S1097-2765(18)30790-1. doi: 10.1016/j.molcel.2018.09.019. [Epub ahead of print] PMID:  30415951<br>
+
+<b>141.</b>Kiran M, Chatrath A, Tang X, Keenan DM, Dutta A. A Prognostic Signature for Lower Grade Gliomas Based on Expression of Long Non-Coding RNAs. Mol Neurobiol. 2018 Nov 3. doi: 10.1007/s12035-018-1416-y. [Epub ahead of print] PMID: 30392137<br>
+
+<b>142.</b>Chatrath A, Kiran M, Kumar P, Ratan A, Dutta A. The Germline Variants rs6175955 and rs34988193 Are Predictive of Survival in Lower Grade Glioma Patients. Mol Cancer Research. 2019 May;17(5):1075-1086. doi: 10.1158/1541-7786.MCR-18-0996. PMID: 30651372<br>
+
+<b>143.</b>Paulsen T, Shibata Y, Kumar P, Dillon L, Dutta A. Small extrachromosomal circular DNAs, microDNA, produce short regulatory RNAs that suppress gene expression independent of canonical promoters. Nucleic Acids Res. 2019 May 21;47(9):4586-4596. doi: 10.1093/nar/gkz155. PMID: 30828735<br>
+
+<b>144.</b>Su Z, Kuscu C, Malik A, Shibata E, Dutta A. Angiogenin generates specific stress-induced tRNA halves and is not involved in tRF-3-mediated gene silencing. J Biol Chem. 2019 Oct 3. pii: jbc.RA119.009272. doi: 10.1074/jbc.RA119.009272. [Epub ahead of print] PMID: 31582561<br>
+ </div>
+
+ <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button> 
+
+ </div>
+
+ </div>
+
+ </div>
+
+ </div>
+
+    
+<div class="footer">
+ 	<div class="footerContent"> 
+    	<div class="footerLeft">duttalab &#0169 2017</div>
+    	<div class="footerRight">genome.bioch.virginia.edu</div>
+    </div>
+ </div>
+    
+
+</div>
+</html>
+</html>

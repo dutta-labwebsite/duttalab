@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anindya Dutta</title>
+<meta name="description" content="Anindya Dutta is ">
+<link rel="stylesheet" type="text/css" href="CSS/research.css"/>
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="websiteAnimateComp_1.js?1481401977311"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {	
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.websiteAnimateComp_1();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	fnStartAnimation();
+}
+</script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52643916-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<link rel="icon" type="image/ico" href="faviconSmall.ico">            
+</head>
+
+
+<header class="headerMain">
+
+<div class="header">
+<div class= "logo">
+	<div class = "logoImage"><img src="images/Logo.jpg" width="380px" alt="Logo"/></div>
+    <div class = "name"> </div>
+</div>
+
+
+<div class="nav">
+ <ul class="ulnav">
+   	<li class="linav"><a href="index.html"> Home</a></li>
+   	<div class="dropdown">
+   	<button class="dropbtn">Research</button>
+   	<div class="dropdown-content">
+      <a href="dnadamage.html">DNA Damage</a>
+      <a href="noncodingrna.html">Non-Coding RNA</a>
+      <a href="genomic.html">Genomic Instability</a>
+    </div>
+    </div>
+    <li class="linav"><a href="People.html"> People</a></li>
+    <li class="linav"><a href="Publications.html"> Publications </a></li>
+    <li class="linav"><a href="Contact.html"> Contact</a></li>
+  </ul>
+ </div>
+    
+ 
+ <!-- banner -->
+
+ 
+ <!-- End banner -->
+ <div class = "resInt"><div class="aboutme"><b>Non-coding RNAs</b></div><br>
+	<div class="resIntText"> Half my lab studies how non-coding RNAs regulate differentiation and cancer.  We identified many microRNAs that are induced during skeletal muscle differentiation and showed that they have specific roles in promoting cell-cycle quiescence and regulating myogenic transcription factors (Figure).  In parallel studies in prostate cancer we identified the miR-99 family of microRNAs as tumor suppressors.  Our work on differentiation and cancer progression has been moving towards the identification of long noncoding RNAs (lncRNAs) that are important for these processes. For example, we have identified lncRNAs H19. MUNC and ten others as being important for muscle differetiation, with significant effort on  mechanisms by which these lncRNAs regulate cellular function.  In parallel we have identified lncRNAs like DRAIC and APTR that are critical for cancer cell proliferation or cell migration/invasion.
+
+	<div class = "resIntImage"><img src="images/noncodingrna1.jpg" width="400" height="200"></div>
+
+	<div class="resIntText"> We have made the novel discovery that our cells are full of short RNAs (tRFs) that are derived from specific cleavage of tRNAs.  These tRFs are a class of non-micro-short RNAs that enter into Ago complexes and use their seed sequences to target mRNAs.  We have created the first tRF database to expedite the study of tRFs.  We believe that tRFs and lncRNAs are both going to become significantly important in our studies of differentiation and cancer.
+
+	<div class = "resIntImage"><img src="images/noncodingrna2.jpg" width="350" height="200"></div>
+	</div>
+	
+	</div>
+
+
+ </div>
+
+ </div>
+
+    
+<div class="footer">
+ 	<div class="footerContent"> 
+    	<div class="footerLeft">duttalab &#0169 2017</div>
+    	<div class="footerRight">genome.bioch.virginia.edu</div>
+    </div>
+ </div>
+    
+
+</div>
+</html>
+</html>

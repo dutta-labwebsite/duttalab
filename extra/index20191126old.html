@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anindya Dutta</title>
+<meta name="description" content="Anindya Dutta is ">
+<link rel="stylesheet" type="text/css" href="CSS/indexNav.css"/>
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="websiteAnimateComp_1.js?1481401977311"></script>
+<script>
+
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {	
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.websiteAnimateComp_1();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	fnStartAnimation();
+}
+</script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52643916-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<link rel="icon" type="image/ico" href="faviconSmall.ico">     
+
+</head>
+
+
+
+
+<header class="headerMain">
+
+<div class="header">
+<div class= "logo">
+	<div class = "logoImage"><img src="images/Logo.jpg" width="380px" alt="Logo"/></div>
+    <div class = "name"> </div>
+</div>
+
+
+<div class="nav">
+ <ul class="ulnav">
+   	<li class="linav"><a href="index.html"> Home</a></li>
+   	<div class="dropdown">
+   	<button class="dropbtn">Research</button>
+   	<div class="dropdown-content">
+      <a href="dnadamage.html">DNA Damage</a>
+      <a href="genomic.html">Genomic Instability</a>
+      <a href="noncodingrna.html">Non-Coding RNA</a>
+    </div>
+    </div>
+    <li class="linav"><a href="People.html"> People</a></li>
+    <li class="linav"><a href="Publications.html"> Publications </a></li>
+    <li class="linav"><a href="Contact.html"> Contact</a></li>
+  </ul>
+ </div>
+
+
+</header>
+    
+ <div class="main">
+ 
+ <!-- banner -->
+ <body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:960px; height:450px">
+		<canvas id="canvas" width="960" height="450" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:960px; height:450px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+</body>
+ 
+ <!-- End banner -->
+
+ 
+ <div class="textBoxes">
+ <div class = "textBox1">
+	 <div class="heading"><a href="dnadamage.html">DNA Damage</a></div><br>
+	 The ubiquitylation and deubiquitylation of key molecules involved in the regulation of a cell's response to DNA damage has become an important area of research for therapy of cancers.  We focus on ubiquitylation / deubiquitylation pathways related to the DNA replication apparatus and in the dysregulation of DNA damage response induced by viral oncoproteins.
+ 	</div>
+ 	
+    <div class = "textBox3">
+    <div class="heading"><a href="noncodingrna.html">Non-coding RNAs</a></div><br>
+ 	Short and long noncoding RNAs are turning out to be very important for various facets of biology.  We study them in the context of how they regulate differentiation of skeletal muscle and the progression of prostate cancer.
+ 	</div>
+ 	
+    <div class = "textBox2">
+    <div class="heading"><a href="genomic.html">Genomic Instability</a></div><br>
+    With the revolution of genomic sequencing, questions relating to where origins of replication are located, what genes are important for cancer progression or for prediction of responsiveness to chemotherapy, and whether there are new forms of nucleic acid molecules in the cell or in our body fluids have become easier to access.  We take a leading role in these areas of exploration.
+ 	
+ 	</div>
+ 	</div>
+ 	
+	 <div class = "resInt"><div class="aboutme"><b>About Dr. Dutta</b></div><br>
+	 <div class = "resIntText"> His research interests cover genomic instability in cancer cells and noncoding RNAs in differentiation and cancer. His laboratory identified many of the replication initiation proteins in human cells, used genomics technology to identify hundreds of origins of replication in human chromosomes, discovered a major mechanism by which human cells prevent over-replication of their DNA, and identified a novel class of circular DNA present in normal mammalian cells His laboratory has also discovered many microRNAs that inhibit cell proliferation and promote differentiation during the conversion of muscle stem cells to mature muscle and microRNAs that contribute to the phenotypes of advanced prostate cancer. He has trained over thirty scientists who continue research in academia or industry, and has received the following honors: Elected Fellow of the AAAS, Ranbaxy Award for studies on genome instability and the Outstanding Investigator Award of the American Society for Investigative Pathology.
+
+
+
+	 </div>
+
+	 </div>
+
+	<div class = "resIntImage"><img src="images/Dutta_new.jpeg" width="140px" height="180px" alt="Image"/></div>
+
+	<div class = "resIntText"><div class="aboutme"><b>Latest News</b></div>
+
+	<marquee direction="up" width="960" height="150" behavior="scroll" style="border:thin;" bgcolor=#D3D3D3 scrolldelay="400";>
+    <b>Nov 2018:</b> Congratulations to Dr. Zhangli Su, Dr. Anindya Dutta and Dr. John Lukens for receiving the UVA Supporting Transformative Autism Research (STAR) Pilot Award to work on microRNAs in autism. </br><br>
+
+    <b>Oct 2018:</b> Congratulations to Dr. Manjari Kiran for getting her paper accepted in Molecular Neurobiology.</br></br>
+
+    <b>Sep 2018:</b> Congratulations to Dr. Shashi Kiran on getting his paper accepted in Molecular Cell.</br><br>
+
+    <b>Aug 2018:</b> Dr. Dutta just returned from chairing a Gordon Conference on Genome Stability in Hong Kong. </br></br> 
+
+    <b>Aug 2018:</b> Teressa Paulsen gave a very well-received talk at Gordon Conference on Genome Stability in Hong Kong.</br></br>
+
+    <b>July 2018:</b> Dr. Bruno Karia successfully defended Ph.D. thesis.  Congratulations! </br></br>
+
+    <b>April 2018:</b> Congratulations to Dr. Ji-Hye Ahn on receiving a Postdoctoral Fellowship from the National Research Foundation of Korea.</br></br>
+	
+	<b>April 2018:</b> Congratulations to Dr. Takaaki Tsunematsu on receiving a Postdoctoral Fellowship from the Japan Society for Promotion of Science.</br></br>
+	
+	<b>April 2018:</b> Congratulations to Roza Przanowska for receiving a Predoctoral Fellowship from the American Heart Association.</br></br>
+
+</marquee>
+
+
+</div>
+
+
+ </div>
+ 
+ <div class="footer">
+ 	<div class="footerContent"> 
+    	<div class="footerLeft">duttalab &#0169 2017</div>
+    	<div class="footerRight">genome.bioch.virginia.edu</div>
+
+
+    </div>
+ </div>
+    
+
+</div>
+</html>
+</html>

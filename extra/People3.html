@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anindya Dutta</title>
+<meta name="description" content="Anindya Dutta is ">
+<link rel="stylesheet" type="text/css" href="peopleNav.css"/>
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="websiteAnimateComp_1.js?1481401977311"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {	
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.websiteAnimateComp_1();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	fnStartAnimation();
+}
+
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+
+<link rel="icon" type="image/ico" href="faviconSmall.ico">            
+</head>
+
+
+<header class="headerMain">
+
+<div class="header">
+<div class= "logo">
+	<div class = "logoImage"><img src="images/Logo.jpg" width="380px" alt="Logo"/></div>
+    <div class = "name"> </div>
+</div>
+
+
+<div class="nav">
+ <ul class="ulnav">
+   	<li class="linav"><a href="index.html"> Home</a></li>
+    <li class="linav"><a href="People.html"> People</a></li>
+    <li class="linav"><a href="Publications.html"> Publications </a></li>
+    <li class="linav"><a href="Contact.html"> Contact</a></li>
+  </ul>
+ </div>
+</header>
+
+ <div class="textBoxes">
+ 	<div class="textBox1">
+	<div class="heading">Research Associates</a></div><br>
+	 
+<b>Yoshiyuki Shibata</b> Ph.D., Kyushu University, Fukuoka <br/><br/>
+<b>Etsuko Shibata</b> Ph.D., Nagasaki University, Nagasaki <br/><br/>
+<b>Ashraf Dar</b> Ph.D., JNU, New Delhi <br/><br/>
+<b>Kyung Yong Lee</b> Ph.D., Seoul National University <br/><br/>
+<b>Kouhei Sakurai</b> DDS, Ph.D., U. of Tokyo <br/><br/>
+<b>Samarendra Singh</b> Ph.D. IICB, Kolkata, Postdoc: NIH <br/><br/>
+<b>Manjari Kiran</b> Ph.D. CDFD, Manipal University <br/><br/>
+<b>Shashi Kiran</b> Ph.D. CDFD, Hyderabad University <br/><br/>
+<b>Canan Kusku</b> Ph.D. Cold Spring Harbour Laboratory <br/><br/>
+
+	<div class="heading">Postdoctoral Fellows</a></div><br>
+
+<b>Pankaj Kumar</b> Ph.D., CDFD, Hyderabad <br/><br/>
+<b>Laura Dillon</b> Ph.D., Wake Forest University <br/><br/>
+
+</div>
+ 	
+ <div class = "textBox2">
+    <div class="heading">Graduate Students</a></div><br>
+ 	
+<b>Magdalena Cichewicz</b> Ph.D. student, Biochemistry <br/><br/>
+<b>Brian ReonMD</b>, Ph.D. student, Pathology <br/><br/>
+<b>Bruno Karia</b> Ph.D. student in Biochemistry <br/><br/>
+
+	<div class="heading">Undergraduate Students</a></div><br>
+
+<b>Nicholas Lee</b>, UVa <br/><br/>
+<b>Debbie Pan</b>, UVa <br/><br/>
+<b>Eric Teplitz</b>, UVa <br/><br/>
+ 	</div>
+
+ </div>
+
+<div class = "resInt"><div class="aboutme">Alumni</div><br>
+	 <div class = "resIntText"> 
+    <b>Junjie ChenProfessor</b>, M.D. Anderson Medical Center Ellen WinchesterSoftware engineer, Broad Institute, M.I.T <br/>
+	<b>Partha Saha</b> Sr. Lecturer, Saha Institute, Kolkata <br/>
+	Suman K. Dhar Professor, JNU, New Delhi <br/>
+	Zophonias Jonsson Sr. Lecturer, University of Iceland <br/>
+	David Garcia Quintana Assoc. Professor, Autonomous University, Barcelona <br/>
+	Chinweike Ukomadu Asst. Professor, Harvard Medical School <br/>
+	Yi Ling LinAsst. Professor, UCLA <br/>
+	James Wohlschlegel Asst. Professor, UCLA <br/>
+	Sandeep Saxena Asst. Professor, National Institute of Immunology, New Delhi <br/>
+	Takeshi Senga Assoc. Professor, Nagoya University <br/>
+	Kenichi Yoshida Assoc. Professor, Meiji University <br/>
+	Yuefeng Chen Research Assistant, Eli Lilly, Indianapolis <br/>
+	Uma Sivaprasad Research Asst. Professor, U. of Cincinnati <br/>
+	Yuichi J. Machida Asst. Professor, Mayo Clinic, Rochester <br/>
+	Christopher Taylor Assoc. Professor, LSU Health, New Orleans <br/>
+	Yong Sun Lee Asst. Professor, University of Texas Medical Branch, Galveston <br/>
+	Wenge Zhu Asst. Professor, George Washington University <br/>
+	David Takeda Oncology Fellow, Dana Farber Cancer Institute <br/>
+	Jamie Teer Asst. Member, Moffitt Cancer Center <br/>
+	Ankit Malhotra Assoc. Computational Scientist,  Jackson Laboratory for Genomic Medicine, CT <br/>
+	Kenta Terai Asst. Prof., U. of Tokyo <br/>
+	Sudhakar Jha Asst. Prof. Centre for Translational Medicine, National University Singapore <br/>
+	Mignon Keaton Director of Project Management and Scientific Administration, Center of Human Genome Variation, Duke University <br/> 
+	Neerja KarnaniPI, Singapore Institute of Clinical Sciences <br/>
+	Jie Lin Senior Research Technologist, St. Jude Children's Research Hospital, Memphis, TN <br/>
+	Ryan Layer Ph.D. student, UVA <br/>
+	Tarek Abbas Asst. Prof., University of Virginia <br/>
+	Jeffrey Gagan Ph.D., M.D. part of MSTP, U. of Virginia <br/>
+	Dandan Sun CBPartners, New York <br/>
+	Jonghoon Park Scientist, LG Life Sciences, Daejon <br/>
+	Ashish Gupta Asst. Professor, Shiv Nadar University (SNU), Greater Noida, U.P <br/>
+	Bijan Dey Senior Research Associate, Ophthalmology, UVA <br/>
+	Masamitsu Negishi  - <br/>
+	Jun Sub Im  - <br/>
+	Adam Mueller Fourth year M.D. student, UVA <br/>
+	Amir Jazaeri Assoc. Prof., M.D. Anderson Cancer Center <br/>
+ </div>
+
+ </div>
+
+ </div>
+
+    
+<div class="footer">
+ 	<div class="footerContent"> 
+    	<div class="footerLeft">duttalab.com &#0169 2014</div>
+    	<div class="footerRight">duttalab.com</div>
+    </div>
+ </div>
+    
+
+</div>
+</html>
+</html>

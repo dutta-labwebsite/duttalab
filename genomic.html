@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anindya Dutta</title>
+<meta name="description" content="Anindya Dutta is ">
+<link rel="stylesheet" type="text/css" href="CSS/research.css"/>
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="websiteAnimateComp_1.js?1481401977311"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {	
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.websiteAnimateComp_1();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	fnStartAnimation();
+}
+</script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52643916-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<link rel="icon" type="image/ico" href="faviconSmall.ico">            
+</head>
+
+
+<header class="headerMain">
+
+<div class="header">
+<div class= "logo">
+	<div class = "logoImage"><img src="images/Logo.jpg" width="380px" alt="Logo"/></div>
+    <div class = "name"> </div>
+</div>
+
+
+<div class="nav">
+ <ul class="ulnav">
+   	<li class="linav"><a href="index.html"> Home</a></li>
+   	<div class="dropdown">
+   	<button class="dropbtn">Research</button>
+   	<div class="dropdown-content">
+      <a href="dnadamage.html">DNA Damage</a>
+      <a href="noncodingrna.html">Non-Coding RNA</a>
+      <a href="genomic.html">Genomic Instability</a>
+    </div>
+    </div>
+    <li class="linav"><a href="People.html"> People</a></li>
+    <li class="linav"><a href="Publications.html"> Publications </a></li>
+    <li class="linav"><a href="Contact.html"> Contact</a></li>
+  </ul>
+ </div>
+    
+ 
+ <!-- banner -->
+
+ 
+ <!-- End banner -->
+ <div class = "resInt"><div class="aboutme"><b>Genomic Instability</b></div><br>
+	<div class="resIntText"> We were among the first to use genomic technologies to identify the locations of hundreds of human origins of replication and correlated their time of firing to epigenetic marks that resolve into chromatin domains, as part of the ENCODE pilot project.  Recently we used these  genomic approaches to demonstrate how anti-S phase chemotherapy agents affect replication origins and the chromatin:  (a) checkpoint pathways block later firing origins, after Mcm10 loading before Cdc45 loading, (b) hundreds of latent origins fire in early replicating regions, but the forks stall to produce clusters of stalled replication forks (A in the figure) and (c) an unexpected checkpoint pathway affects the chromatin over these clusters leading to DNA unwinding and transcription inhibition (B in the figure).  While applying genomic technologies to evaluate chromosomal rearrangements in cells and cancers, we made the exciting discovery that normal and cancer cells contain thousands of small ‘extrachromosomal circles’ of DNA, which we call ‘microDNAs’, and that the excision of such microDNAs can lead to somatically mosaic microdeletions in the chromosomes, heralding a new form of genomic instability.  Study of microDNAs, the mechanism of their generation, their function, and their development as circulating biomarkers for deep-seated cancers is expected to dominate my interests over the next few years.
+
+	<div class = "resIntImage"><img src="images/Genomic1.jpg" width="500" height="300"></div>
+
+	<div class="resIntText"> PCNA, the clamp for DNA polymerases, was known as a processivity factor important for DNA synthesis.  We discovered that PCNA has a novel role in targeting several proteins  involved in genome maintenance for degradation by CRL4Cdt2.  Specialized PCNA-interacting-Peptide degrons target many proteins important for genome stability to PCNA during S phase, where they are recognized by CRL4Cdt2 and polyubiqutinated.  Our findings explain how inhibition of CRL4Cdt2 by a novel anti-cancer drug, MLN4924, leads to re-replication in rapidly proliferating cancer cells followed by senescence and apoptosis.  We have recently shown that MLN4924 synergizes with cisplatin to restore cisplatin-sensitivity to platinum resistant ovarian cancer cells.  This area of research has immediate and significant translational impact.<br><br>
+
+	<div class = "resIntImage"><img src="images/Genomic2.jpg" width="400" height="250"></div>
+
+	 We showed that different domains of the cell-cycle inhibitor p21 were involved in the interaction with cyclin-cdk and PCNA and that the former was responsible for the cell-cycle inhibition by p21.  We followed the p21-cdk interaction to discover a very specialized cyclin-binding motif (Cy motif or RXL) on p21 that was essential for interaction with the cyclin.  We went on to discover that many substrates of Cdks (e.g. Cdc6, Cdt1) use the Cy motif as a secondary substrate-specificity sequence to associate with the cyclin-CDK kinases.  While I am no longer studying the cell-cycle effects of p21, we recently discovered a long non-coding RNA, APTR, that is recruited to the p21 promoter and helps suppress p21 transcription.  Studies on lncRNAs like APTR are progressively becoming very important in the lab.<br><br>
+
+	 TIP60, a lysine acetyl transferase, is a critical component of the DNA damage response, being involved in the activation of the ATM kinase and in the dephosphorylation of phospho-H2AX at DNA damage sites after DNA repair.  We discovered an important co-factor for TIP60 and other chromatin remodeling complexes (SRCAP, Ino80), called RVB and delineated how and why RVB is important for the activity of TIP60.  RVB has recently emerged as a major chaperone (or adaptor protein) involved in the assembly of a wide range of protein and nucleoprotein complexes (like the chromatin remodeling factors, the telomerase complex, DNA damage responsive kinases etc.).  We have also identified other regulators of TIP60: the deubiquitinase USP7, the viral oncoproteins E6 (from human papillomavirus) and E1b55K+E4orf6 (from adenovirus).<br><br>
+
+	</div>
+	</div>
+	</div>
+	</div>
+
+ 
+
+    
+<div class="footer">
+ 	<div class="footerContent"> 
+    	<div class="footerLeft">duttalab &#0169 2017</div>
+    	<div class="footerRight">genome.bioch.virginia.edu</div>
+    </div>
+ </div>
+    
+
+</div>
+</html>
+</html>
