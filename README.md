@@ -1,4 +1,6 @@
 # dutta-labwebsite.github.io
+## This is the lab website for Anindya Dutta at Department of Genetics, University of Alabama-Birmingham
+
 For lab news: index.html
 keep adding
 if need more space, change line 171 (css file) height=“150”
@@ -11,4 +13,5 @@ For publications: publications.html
 keep adding
 if need more space, change line 181 (css file ) height=“???”
 
-photos: people.html
+For lab photos: people.html
+
